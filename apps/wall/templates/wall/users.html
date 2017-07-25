@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>BLANK_TITLE</title>
+  <meta name="description" content="BLANK DESCRIPTION">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'wall/css/main.css'%}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+<p><a href="{% url 'wall:home' %}">Back</a></p>
+
+<h3>Users:</h3>
+<table>
+{% for user in users %}
+  <tr>
+    <td>{{user.first_name}} {{user.last_name}}</td>
+    <td><a href="{% url 'wall:addFriend' id=user.id %}">Add a Friend</a></td>
+
+  </tr>
+{% endfor %}
+</table>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>BLANK_TITLE</title>
+  <meta name="description" content="BLANK DESCRIPTION">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'cats/css/main.css'%}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+<h1>MeowSpace</h1>
+<h3> Welcome, {{ user.first_name }}</h3>
+<form action="{% url 'users:logout' %}">
+  <input type='submit' value='Log out'>
+</form>
+
+<h4>This is {{cat.name}}'s profile!</h4>
+<h4>{{cat.name}} is {{cat.age}} years old!</h4>
+<h4>{{cat.name}} has a cuteness level of {{cat.like_set.count}}!</h4>
+
+<form action="{% url 'cats:home' %}">
+  <input type='submit' value='Back'>
+</form>
+</body>
+</html>

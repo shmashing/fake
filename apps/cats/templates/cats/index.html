@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>BLANK_TITLE</title>
+  <meta name="description" content="BLANK DESCRIPTION">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'cats/css/main.css'%}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+<h1>MeowSpace</h1>
+<h3> Welcome, {{ user.first_name }}</h3>
+<form action="{% url 'users:logout' %}">
+  <input type='submit' value='Log out'>
+</form>
+
+<h3> Lookit all these kittiess.... </h3>
+
+<table>
+  <thead>
+    <th>The cat</th>
+    <th>Age</th>
+    <th>Cuteness</th>
+    <th>Actions</th>
+  </thead>
+{% for cat in cats %}
+  <tr>
+    <td><a href="{% url 'cats:showCat' id=cat.id %}">{{cat.name}}</a></td>
+    <td>{{cat.age}}</td>
+    <td>{{cat.like_set.count}}</td>
+    {% if cat.user.id == user.id %}
+      <td><a href="{% url 'cats:edit' id=cat.id %}">Edit</a><a href="{% url 'cats:remove' id=cat.id %}">Delete</a></td>
+    {% else %}
+      {% if user.id in cat.getLikes %}
+        <td><a href="{% url 'cats:removeLike' id=cat.id %}">Unlike</a></td>      
+      {% else %}
+        <td><a href="{% url 'cats:addLike' id=cat.id %}">Like</a></td>
+      {% endif %}
+    {% endif %}
+  </tr>
+{% endfor %}
+</table>
+
+<form action="{% url 'cats:add' %}">
+  <input type='submit' value='add a cat!'>
+</form>
+</body>
+</html>
